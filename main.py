@@ -22,7 +22,7 @@ SERIES = [
 def run():
     logger.info("Pipeline iniciado")
     for serie in SERIES:
-        logger.info(f"Processando serie {serie["nome"]}")
+        logger.info(f"Processando serie {serie['nome']}")
         dados_brutos = fetch_serie(serie["codigo"], data_inicial, data_final)
         dados_transformados = transform(dados_brutos, serie["nome"])
         caminho_raw = save_local(dados_brutos,serie["nome"])
@@ -31,7 +31,7 @@ def run():
         caminho_processed = save_processed(dados_transformados, serie["nome"])
         s3_key_processed = os.path.relpath(caminho_processed).replace("\\", "/")
         upload_to_s3(caminho_processed, 'pipelinebcb' , s3_key_processed)
-        #load(dados_transformados)
+        load(dados_transformados)
     logger.info("Pipeline finalizado")
 if __name__ == "__main__":
     run()

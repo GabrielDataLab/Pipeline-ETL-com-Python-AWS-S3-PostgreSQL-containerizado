@@ -13,6 +13,18 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: pipeline_app
+    depends_on:
+      - db-postgres
+    env_file:
+      - .env
+    networks:
+      - private_network
+      - public_network
+
 volumes:
   pgdata:
 
