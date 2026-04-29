@@ -55,8 +55,3 @@ def upload_to_s3(filepath: str, bucket: str, s3_key: str) -> None:
     )
     s3.upload_file(filepath, bucket, s3_key)
     logger.info(f"Arquivo salvo em s3://{bucket}/{s3_key}")
-
-dados = fetch_serie(432, '01/01/2024', '28/04/2026')
-caminho = save_local(dados, 'selic')
-s3_key = os.path.relpath(caminho).replace("\\", "/")
-upload_to_s3(caminho, 'pipelinebcb', s3_key)

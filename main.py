@@ -28,7 +28,7 @@ def run():
         caminho = save_local(dados_brutos,serie["nome"])
         s3_key = os.path.relpath(caminho).replace("\\", "/")
         upload_to_s3(caminho, 'pipelinebcb', s3_key)
-        load(dados_transformados)
+        #load(dados_transformados)
     logger.info("Pipeline finalizado")
 if __name__ == "__main__":
     run()
