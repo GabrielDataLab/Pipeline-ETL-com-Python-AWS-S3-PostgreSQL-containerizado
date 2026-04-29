@@ -55,3 +55,25 @@ def upload_to_s3(filepath: str, bucket: str, s3_key: str) -> None:
     )
     s3.upload_file(filepath, bucket, s3_key)
     logger.info(f"Arquivo salvo em s3://{bucket}/{s3_key}")
+
+
+def save_processed(data: list, nome: str) -> str:
+    # salva o JSON bruto em processed/ano/mes/dia/nome.json
+    # retorna o caminho do arquivo salvo
+    hoje = datetime.now()
+    ano = hoje.strftime("%Y")
+    mes = hoje.strftime("%m")
+    dia = hoje.strftime("%d")
+
+    path = os.path.join("processed", ano, mes, dia)
+
+    os.makedirs(path, exist_ok=True)
+
+    filepath = os.path.join(path, f"{nome}.json")
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(data,f,ensure_ascii=False, indent=4, default=str)
+
+    logger.info(f"Arquivo salvo em {filepath}")
+
+    return filepath

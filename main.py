@@ -1,6 +1,6 @@
 import logging
 import os
-from src.extract import fetch_serie, save_local, upload_to_s3
+from src.extract import fetch_serie, save_local, upload_to_s3, save_processed
 from src.load import load
 from src.transform import transform
 
@@ -25,9 +25,12 @@ def run():
         logger.info(f"Processando serie {serie["nome"]}")
         dados_brutos = fetch_serie(serie["codigo"], data_inicial, data_final)
         dados_transformados = transform(dados_brutos, serie["nome"])
-        caminho = save_local(dados_brutos,serie["nome"])
-        s3_key = os.path.relpath(caminho).replace("\\", "/")
-        upload_to_s3(caminho, 'pipelinebcb', s3_key)
+        caminho_raw = save_local(dados_brutos,serie["nome"])
+        s3_key_raw = os.path.relpath(caminho_raw).replace("\\", "/")
+        upload_to_s3(caminho_raw, 'pipelinebcb', s3_key_raw)
+        caminho_processed = save_processed(dados_transformados, serie["nome"])
+        s3_key_processed = os.path.relpath(caminho_processed).replace("\\", "/")
+        upload_to_s3(caminho_processed, 'pipelinebcb' , s3_key_processed)
         #load(dados_transformados)
     logger.info("Pipeline finalizado")
 if __name__ == "__main__":
