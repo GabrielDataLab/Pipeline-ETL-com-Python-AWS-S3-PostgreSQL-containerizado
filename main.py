@@ -27,10 +27,10 @@ def run():
         dados_transformados = transform(dados_brutos, serie["nome"])
         caminho_raw = save_local(dados_brutos,serie["nome"])
         s3_key_raw = os.path.relpath(caminho_raw).replace("\\", "/")
-        upload_to_s3(caminho_raw, 'pipelinebcb', s3_key_raw)
+        upload_to_s3(caminho_raw, BUCKET, s3_key_raw)
         caminho_processed = save_processed(dados_transformados, serie["nome"])
         s3_key_processed = os.path.relpath(caminho_processed).replace("\\", "/")
-        upload_to_s3(caminho_processed, 'pipelinebcb' , s3_key_processed)
+        upload_to_s3(caminho_processed, BUCKET , s3_key_processed)
         load(dados_transformados)
     logger.info("Pipeline finalizado")
 if __name__ == "__main__":
