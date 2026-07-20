@@ -5,6 +5,10 @@ __pycache__/
 
 # C extensions
 *.so
+#dir
+raw/
+processed/
+.DS_Store
 
 # Distribution / packaging
 .Python
