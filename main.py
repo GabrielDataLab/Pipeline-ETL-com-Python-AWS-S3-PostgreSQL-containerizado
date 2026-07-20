@@ -3,6 +3,7 @@ import os
 from src.extract import fetch_serie, save_local, upload_to_s3, save_processed
 from src.load import load
 from src.transform import transform
+import datetime
 
 logging.basicConfig(
                     level=logging.INFO,
@@ -12,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 BUCKET = "pipelinebcb"
 data_inicial = '01/01/2024'
-data_final = '28/04/2026'
+data_final = datetime.now().strftime('%d/%m/%Y')
 
 SERIES = [
     {"codigo": 433, "nome": "ipca"},
