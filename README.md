@@ -37,7 +37,7 @@ AWS S3 (processed/ano/mes/dia/serie.json)
 | Banco de Dados | PostgreSQL 15 |
 | Infraestrutura | Docker + Docker Compose |
 | CI / Testes | GitHub Actions + Pytest |
-| Bibliotecas | boto3, psycopg2, requests, pandas |
+| Bibliotecas | boto3, psycopg2, requests |
 
 ---
 
