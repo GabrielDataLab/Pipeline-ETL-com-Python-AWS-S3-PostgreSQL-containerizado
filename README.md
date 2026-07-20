@@ -1,7 +1,7 @@
 # Pipeline ETL — Indicadores BCB (IPCA e Selic)
 
 ## Descrição
-A pipeline foi desenvolvida para buscar dados (IPCA e Selic) via API do banco central do Brasil, carregados em um bucket no S3, transformados via python e feito load dos dados tratados em um banco de dados do postgres containnnerizado via Docker
+A pipeline foi desenvolvida para buscar dados (IPCA e Selic) via API do banco central do Brasil, carregados em um bucket no S3, transformados via python e feito load dos dados tratados em um banco de dados do postgres containerizado via Docker
 
 ## Arquitetura
 ```text
@@ -25,7 +25,7 @@ AWS S3 (processed/ano/mes/dia/serie.json)
                │
                ▼
  PostgreSQL (Tabela: indicadores_bcb)
- (Carga incremental com UPSERT)
+ (Full-load com carga idempotente (UPSERT))
 ```
 
 # Tech Stack
